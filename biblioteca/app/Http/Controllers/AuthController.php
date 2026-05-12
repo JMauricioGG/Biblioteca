@@ -23,18 +23,30 @@ class AuthController extends Controller
 
  if ($usuario) {
             session(['usuario' => $usuario->nombre_del_usuario]);
-            return redirect('/home');
+           
+           if ($usuario->nombre_del_usuario == 'administrador')
+             return redirect('/home-admin');
+        }else{
+            return redirect('/home-empleado');
         }
 
         return back()->with('error', 'Usuario o contraseña incorrectos');
     }
-public function home()
+public function homeAdmin()
     {
         if (!session('usuario')) {
             return redirect('/login');
         }
-        return view('auth.home');
+        return view('auth.home-admin');
     }
+public function homeEmpleado()
+    {
+        if (!session('usuario')) {
+            return redirect('/login');
+        }
+        return view('auth.home-empleado');
+    }
+
 
     public function logout()
     {

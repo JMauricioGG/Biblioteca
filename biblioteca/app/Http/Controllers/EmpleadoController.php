@@ -44,7 +44,7 @@ class EmpleadoController extends Controller
             'turno'     => $request->turno,
         ]);
 
-        return redirect('/home'); //
+        return redirect('/home-admin'); //
     }
 
     /**

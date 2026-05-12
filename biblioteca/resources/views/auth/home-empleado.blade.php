@@ -7,16 +7,16 @@
 </head>
 <body>
 
-<h1>Biblioteca Sistema</h1>
+<h1>Biblioteca Digital</h1>
 <p>Usuario logeado: {{ session('usuario') }}</p>
 
 <img src="https://thumbs.dreamstime.com/z/la-educaci%C3%B3n-en-l%C3%ADnea-biblioteca-o-el-fondo-de-estanter%C3%ADa-librer%C3%ADa-con-libros-como-vector-tem%C3%A1tica-educativa-dibujos-animados-167537218.jpg" alt="Biblioteca" width="400">
 
-<h2>Menú EMPLEADOS</h2>
+<h2>Menú LIBROS</h2>
 <ul>
-    <li><a href="/empleados/create">Registrar</a></li>
+    <li><a href="/libros/create">Registrar</a></li>
     <li><a href="#">Consulta individual</a></li>
-    <li><a href="/empleados">Consulta general</a></li>
+    <li><a href="/libros">Consulta general</a></li>
     <li><a href="#">Cambiar</a></li>
     <li><a href="#">Eliminar</a></li>
 </ul>

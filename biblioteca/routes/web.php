@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlumnoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
@@ -16,11 +17,13 @@ Route::get('/test', function () {
 
 Route::get('/login', [AuthController::class, 'index'])->withoutMiddleware(['auth']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/home', [AuthController::class, 'home']);
+Route::get('/home-admin', [AuthController::class, 'homeAdmin']);
+Route::get('/home-empleado', [AuthController::class, 'homeEmpleado']);
+
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::resource('empleados', EmpleadoController::class);
-
+Route::resource('alumnos', AlumnoController::class);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

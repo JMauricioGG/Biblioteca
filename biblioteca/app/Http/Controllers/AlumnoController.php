@@ -42,7 +42,7 @@ class AlumnoController extends Controller
             
         ]);
 
-        return redirect('/home');  //
+        return redirect('/home-admin');  //
     }
     /**
      * Display the specified resource.
