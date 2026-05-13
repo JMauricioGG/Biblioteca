@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar alumno</title>
+    <title>Registrar profesor</title>
 </head>
 <body>
 
-<h1>Registrar alumno</h1>
+<h1>Registrar profesor</h1>
 
-<form method="POST" action="/alumnos">
+<form method="POST" action="/profesores">
     @csrf
+
     <label>Código:</label>
     <input type="text" name="codigo" required>
     <br>
     <label>Nombre:</label>
     <input type="text" name="nombre" required>
     <br>
-    <label>Carrera:</label>
-    <input type="text" name="carrera">
+    <label>Departamento:</label>
+    <input type="text" name="departamento">
     <br>
     <label>Correo:</label>
     <input type="text" name="correo">
@@ -35,7 +36,7 @@
     <label>Fecha de nacimiento:</label>
     <input type="date" name="fecha_nacimiento">
     <br>
-    <button type="submit">Guardar alumno</button>
+    <button type="submit">Guardar profesor</button>
 </form>
 
 <a href="/home-admin">Volver al menú principal</a>
