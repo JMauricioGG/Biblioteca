@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\ProfesorController;
 
 Route::get('/test', function () {
     try {
@@ -24,6 +25,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::resource('empleados', EmpleadoController::class);
 Route::resource('alumnos', AlumnoController::class);
+Route::resource('profesores', ProfesorController::class);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
