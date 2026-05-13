@@ -28,7 +28,14 @@
     <li><a href="#">Cambiar</a></li>
     <li><a href="#">Eliminar</a></li>
 </ul>
-
+<h2>Menú PROFESORES</h2>
+<ul>
+    <li><a href="/profesores/create">Registrar</a></li>
+    <li><a href="#">Consulta individual</a></li>
+    <li><a href="/profesores">Consulta general</a></li>
+    <li><a href="#">Cambiar</a></li>
+    <li><a href="#">Eliminar</a></li>
+</ul>
 <a href="/logout">Cerrar sesión</a>
 
 </body>
