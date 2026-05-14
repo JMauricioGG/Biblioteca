@@ -13,7 +13,7 @@ class ProfesorController extends Controller
     public function index()
     {
       if (!session('usuario')) return redirect('/login');
-        $profesores = DB::table('maestro')->get();
+        $profesores = DB::table('profesor')->get();
         return view('profesores.index', compact('profesores'));   //
     }
 
@@ -31,7 +31,7 @@ class ProfesorController extends Controller
      */
     public function store(Request $request)
     {
-     DB::table('maestro')->insert([
+     DB::table('profesor')->insert([
             'codigo'           => $request->codigo,
             'nombre'           => $request->nombre,
             'departamento'     => $request->departamento,

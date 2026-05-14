@@ -14,12 +14,16 @@
         <tr>
             <th>Código</th>
             <th>Nombre</th>
-            <th>Departamento</th>
-            <th>Correo</th>
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Sexo</th>
             <th>Fecha de nacimiento</th>
+            <th>Departamento</th>
+            <th>Correo</th>
+            
+           
+            
+            
         </tr>
     </thead>
     <tbody>
@@ -27,12 +31,16 @@
         <tr>
             <td>{{ $profesor->codigo }}</td>
             <td>{{ $profesor->nombre }}</td>
+             <td>{{ $profesor->direccion }}</td>
+             <td>{{ $profesor->telefono }}</td>
+             <td>{{ $profesor->sexo }}</td>
+             <td>{{ $profesor->fecha_nacimiento }}</td>
             <td>{{ $profesor->departamento }}</td>
             <td>{{ $profesor->correo }}</td>
-            <td>{{ $profesor->direccion }}</td>
-            <td>{{ $profesor->telefono }}</td>
-            <td>{{ $profesor->sexo }}</td>
-            <td>{{ $profesor->fecha_nacimiento }}</td>
+           
+            
+            
+            
         </tr>
         @endforeach
     </tbody>
