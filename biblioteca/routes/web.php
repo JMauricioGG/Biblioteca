@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\PrestamoController;
 
 Route::get('/test', function () {
     try {
@@ -29,7 +30,9 @@ Route::resource('alumnos', AlumnoController::class);
 Route::resource('profesores', ProfesorController::class);
 Route::resource('libros', LibroController::class);
 
-
+Route::resource('prestamos', PrestamoController::class);
+Route::get('/prestamos/{id}/devolver', [PrestamoController::class, 'devolver']);
+Route::post('/prestamos/{id}/devolver', [PrestamoController::class, 'procesarDevolucion']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

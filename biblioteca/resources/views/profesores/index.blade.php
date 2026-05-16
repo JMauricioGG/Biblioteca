@@ -19,11 +19,7 @@
             <th>Sexo</th>
             <th>Fecha de nacimiento</th>
             <th>Departamento</th>
-            <th>Correo</th>
-            
-           
-            
-            
+            <th>Correo</th>    
         </tr>
     </thead>
     <tbody>
@@ -37,10 +33,6 @@
              <td>{{ $profesor->fecha_nacimiento }}</td>
             <td>{{ $profesor->departamento }}</td>
             <td>{{ $profesor->correo }}</td>
-           
-            
-            
-            
         </tr>
         @endforeach
     </tbody>
