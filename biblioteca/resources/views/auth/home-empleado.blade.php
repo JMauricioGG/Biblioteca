@@ -24,7 +24,7 @@
 <h2>Menú PRESTAMOS</h2>
 <ul>
     <li><a href="/prestamos/create">Registrar préstamo</a></li>
-    <li><a href="/prestamos/devolver">Devolver préstamo</a></li>
+    <li><a href="/prestamos/devolver-index">Devolver préstamo</a></li>
     <li><a href="/prestamos/consulta">Consulta de préstamo</a></li>
     <li><a href="/prestamos">Consultas de préstamos</a></li>
 </ul>

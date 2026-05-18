@@ -4,35 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
 class PrestamoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-       if (!session('usuario')) return redirect('/login');
+        if (!session('usuario')) return redirect('/login');
         $prestamos = DB::table('prestamo')->get();
-        return view('prestamos.index', compact('prestamos'));  //
+        return view('prestamos.index', compact('prestamos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-      if (!session('usuario')) return redirect('/login');
-        return view('prestamos.create');  //
+        if (!session('usuario')) return redirect('/login');
+        return view('prestamos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-       $fecha_prestamo = Carbon::parse($request->fecha_prestamo);
+        $fecha_prestamo = Carbon::parse($request->fecha_prestamo);
         $fecha_limite = $fecha_prestamo->copy()->addDays(7);
 
         DB::table('prestamo')->insert([
@@ -46,15 +39,22 @@ class PrestamoController extends Controller
             'multa'              => 0,
         ]);
 
-        return redirect('/home-empleado'); //
+        return redirect('/home-empleado');
     }
-  public function devolver(string $id)
+
+    public function devolver(string $id)
     {
         if (!session('usuario')) return redirect('/login');
         $prestamo = DB::table('prestamo')->where('id', $id)->first();
         return view('prestamos.devolver', compact('prestamo'));
     }
- public function procesarDevolucion(Request $request, string $id)
+public function devolverIndex()
+{
+    if (!session('usuario')) return redirect('/login');
+    $prestamos = DB::table('prestamo')->where('estatus', 'prestado')->get();
+    return view('prestamos.devolver-index', compact('prestamos'));
+}
+    public function procesarDevolucion(Request $request, string $id)
     {
         $prestamo = DB::table('prestamo')->where('id', $id)->first();
         $fecha_devolucion = Carbon::parse($request->fecha_devolucion);
@@ -62,7 +62,7 @@ class PrestamoController extends Controller
 
         $multa = 0;
         if ($fecha_devolucion->gt($fecha_limite)) {
-            $dias_retraso = $fecha_devolucion->diffInDays($fecha_limite);
+           $dias_retraso = $fecha_limite->diffInDays($fecha_devolucion);
             $tarifa = $prestamo->tipo_solicitante == 'maestro' ? 10 : 5;
             $multa = $dias_retraso * $tarifa;
         }
@@ -73,37 +73,32 @@ class PrestamoController extends Controller
             'multa'            => $multa,
         ]);
 
-        return redirect('/home-empleado');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        if ($multa > 0) {
+            if ($prestamo->tipo_solicitante == 'maestro') {
+                $solicitante = DB::table('profesor')->where('codigo', $prestamo->codigo_solicitante)->first();
+            } else {
+                $solicitante = DB::table('alumno')->where('codigo', $prestamo->codigo_solicitante)->first();
+            }
+
+            $libro = DB::table('libro')
+                ->where('isbn', $prestamo->isbn)
+                ->where('num_ejemplar', $prestamo->num_ejemplar)
+                ->first();
+
+            $pdf = Pdf::loadView('prestamos.multa', compact('prestamo', 'solicitante', 'libro', 'multa'));
+
+            Mail::send('prestamos.correo', compact('solicitante', 'multa'), function($message) use ($solicitante, $pdf) {
+                $message->to($solicitante->correo)
+                        ->subject('Multa por retraso - Biblioteca Digital')
+                        ->attachData($pdf->output(), 'multa.pdf');
+            });
+        }
+
+        return redirect('/prestamos');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
+    public function edit(string $id) {}
+    public function update(Request $request, string $id) {}
+    public function destroy(string $id) {}
 }

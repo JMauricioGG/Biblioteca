@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de préstamos</title>
+    <title>Devolver préstamo</title>
 </head>
 <body>
 
-<h1>Consulta de préstamos</h1>
+<h1>Devolver préstamo</h1>
 
 <table border="1">
     <thead>
@@ -19,9 +19,7 @@
             <th>Ejemplar</th>
             <th>Fecha préstamo</th>
             <th>Fecha límite</th>
-            <th>Fecha devolución</th>
             <th>Estatus</th>
-            <th>Multa</th>
             <th>Acción</th>
         </tr>
     </thead>
@@ -35,9 +33,7 @@
             <td>{{ $prestamo->num_ejemplar }}</td>
             <td>{{ $prestamo->fecha_prestamo }}</td>
             <td>{{ $prestamo->fecha_limite }}</td>
-            <td>{{ $prestamo->fecha_devolucion ?? 'Pendiente' }}</td>
             <td>{{ $prestamo->estatus }}</td>
-            <td>{{ $prestamo->multa }}</td>
             <td><a href="/prestamos/{{ $prestamo->id }}/devolver">Devolver</a></td>
         </tr>
         @endforeach

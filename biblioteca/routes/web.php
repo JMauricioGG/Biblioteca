@@ -30,9 +30,11 @@ Route::resource('alumnos', AlumnoController::class);
 Route::resource('profesores', ProfesorController::class);
 Route::resource('libros', LibroController::class);
 
-Route::resource('prestamos', PrestamoController::class);
+Route::get('/prestamos/devolver-index', [PrestamoController::class, 'devolverIndex']);
 Route::get('/prestamos/{id}/devolver', [PrestamoController::class, 'devolver']);
 Route::post('/prestamos/{id}/devolver', [PrestamoController::class, 'procesarDevolucion']);
+
+Route::resource('prestamos', PrestamoController::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
