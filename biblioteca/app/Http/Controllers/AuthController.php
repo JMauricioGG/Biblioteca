@@ -16,10 +16,11 @@ class AuthController extends Controller
 
    public function login(Request $request)
    {
-   $usuario = DB::table('usuario')
-        ->where('nombre_del_usuario', $request->nombre_del_usuario)
-        ->where('contrasena', $request->contrasena)
-        ->first();
+   $usuario = DB::select('SELECT * FROM usuario WHERE nombre_del_usuario = ? AND contrasena = ?', [
+    $request->nombre_del_usuario,
+    $request->contrasena,
+]);
+$usuario = $usuario[0] ?? null;
 
     if ($usuario) {
         session(['usuario' => $usuario->nombre_del_usuario]);

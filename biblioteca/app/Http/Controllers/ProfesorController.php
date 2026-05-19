@@ -13,7 +13,7 @@ class ProfesorController extends Controller
     public function index()
     {
       if (!session('usuario')) return redirect('/login');
-        $profesores = DB::table('profesor')->get();
+       $profesores = DB::select('SELECT * FROM profesor');
         return view('profesores.index', compact('profesores'));   //
     }
 
@@ -31,16 +31,18 @@ class ProfesorController extends Controller
      */
     public function store(Request $request)
     {
-     DB::table('profesor')->insert([
-            'codigo'           => $request->codigo,
-            'nombre'           => $request->nombre,
-            'departamento'     => $request->departamento,
-            'correo'           => $request->correo,
-            'direccion'        => $request->direccion,
-            'telefono'         => $request->telefono,
-            'sexo'             => $request->sexo,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-        ]);
+    DB::statement('INSERT INTO profesor
+    (codigo, nombre, departamento, correo, direccion, telefono, sexo, fecha_nacimiento)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+    $request->codigo,
+    $request->nombre,
+    $request->departamento,
+    $request->correo,
+    $request->direccion,
+    $request->telefono,
+    $request->sexo,
+    $request->fecha_nacimiento,
+]);
         return redirect('/home-admin');   //
     }
 

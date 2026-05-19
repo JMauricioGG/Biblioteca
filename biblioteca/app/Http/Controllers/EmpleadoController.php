@@ -15,7 +15,7 @@ class EmpleadoController extends Controller
         if (!session('usuario')) {
             return redirect('/login');
         }
-        $empleados = DB::table('empleado')->get();
+      $empleados = DB::select('SELECT * FROM empleado');
         return view('empleados.index', compact('empleados')); //
     }
     /**
@@ -34,15 +34,17 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-       DB::table('empleado')->insert([
-            'codigo'    => $request->codigo,
-            'nombre'    => $request->nombre,
-            'direccion' => $request->direccion,
-            'telefono'  => $request->telefono,
-            'sexo'      => $request->sexo,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            'turno'     => $request->turno,
-        ]);
+       DB::statement('INSERT INTO empleado
+    (codigo, nombre, direccion, telefono, sexo, fecha_nacimiento, turno)
+    VALUES (?, ?, ?, ?, ?, ?, ?)', [
+    $request->codigo,
+    $request->nombre,
+    $request->direccion,
+    $request->telefono,
+    $request->sexo,
+    $request->fecha_nacimiento,
+    $request->turno,
+]);
 
         return redirect('/home-admin'); //
     }

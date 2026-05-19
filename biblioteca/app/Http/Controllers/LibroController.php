@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class LibroController extends Controller
-{
+{  
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
       if (!session('usuario')) return redirect('/login');
-        $libros = DB::table('libro')->get();
+        $libros = DB::select('SELECT * FROM libro');
         return view('libros.index', compact('libros'));  //
     }
 
@@ -31,14 +31,16 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('libro')->insert([
-            'isbn'            => $request->isbn,
-            'titulo'          => $request->titulo,
-            'autores'         => $request->autores,
-            'editorial'       => $request->editorial,
-            'anio_publicacion' => $request->anio_publicacion,
-            'num_ejemplar'    => $request->num_ejemplar,
-        ]);
+       DB::statement('INSERT INTO libro
+    (isbn, titulo, autores, editorial, anio_publicacion, num_ejemplar)
+    VALUES (?, ?, ?, ?, ?, ?)', [
+    $request->isbn,
+    $request->titulo,
+    $request->autores,
+    $request->editorial,
+    $request->anio_publicacion,
+    $request->num_ejemplar,
+]);
         return redirect('/home-empleado'); //
     }
 

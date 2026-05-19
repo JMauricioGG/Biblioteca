@@ -12,7 +12,7 @@ class AlumnoController extends Controller
     public function index()
     {
          if (!session('usuario')) return redirect('/login');
-        $alumnos = DB::table('alumno')->get();
+        $alumnos = DB::select('SELECT * FROM alumno');
         return view('alumnos.index', compact('alumnos'));//
     }
 
@@ -30,17 +30,18 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-       DB::table('alumno')->insert([
-            'codigo'    => $request->codigo,
-            'nombre'    => $request->nombre,
-            'carrera' => $request->carrera,
-            'correo'=> $request->correo,
-            'direccion'  => $request->direccion,
-            'telefono' => $request->telefono,
-            'sexo'      => $request->sexo,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            
-        ]);
+       DB::statement('INSERT INTO alumno 
+    (codigo, nombre, carrera, correo, direccion, telefono, sexo, fecha_nacimiento)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+    $request->codigo,
+    $request->nombre,
+    $request->carrera,
+    $request->correo,
+    $request->direccion,
+    $request->telefono,
+    $request->sexo,
+    $request->fecha_nacimiento,
+]);
 
         return redirect('/home-admin');  //
     }

@@ -38,7 +38,13 @@
             <td>{{ $prestamo->fecha_devolucion ?? 'Pendiente' }}</td>
             <td>{{ $prestamo->estatus }}</td>
             <td>{{ $prestamo->multa }}</td>
-            <td><a href="/prestamos/{{ $prestamo->id }}/devolver">Devolver</a></td>
+            <td>
+                @if($prestamo->estatus == 'prestado')
+                    <a href="/prestamos/{{ $prestamo->id }}/devolver">Devolver</a>
+                @else
+                    Ya entregado
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>

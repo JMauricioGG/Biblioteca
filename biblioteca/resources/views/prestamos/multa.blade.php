@@ -20,7 +20,7 @@
 <h3>Datos del préstamo</h3>
 <p><strong>Fecha préstamo:</strong> {{ $prestamo->fecha_prestamo }}</p>
 <p><strong>Fecha límite:</strong> {{ $prestamo->fecha_limite }}</p>
-<p><strong>Fecha devolución:</strong> {{ $prestamo->fecha_devolucion }}</p>
+<p><strong>Fecha devolución:</strong> {{ $fecha_devolucion->format('Y-m-d') }}</p>
 
 <h3>Multa a pagar: ${{ $multa }}</h3>
 

@@ -34,7 +34,13 @@
             <td>{{ $prestamo->fecha_prestamo }}</td>
             <td>{{ $prestamo->fecha_limite }}</td>
             <td>{{ $prestamo->estatus }}</td>
-            <td><a href="/prestamos/{{ $prestamo->id }}/devolver">Devolver</a></td>
+            <td>
+                @if($prestamo->estatus == 'prestado')
+                    <a href="/prestamos/{{ $prestamo->id }}/devolver">Devolver</a>
+                @else
+                    Ya entregado
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>
