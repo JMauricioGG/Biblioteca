@@ -17,7 +17,7 @@ Route::get('/test', function () {
         return "Error: " . $e->getMessage();
     }
 });
-
+Route::redirect('/', '/login');
 Route::get('/login', [AuthController::class, 'index'])->withoutMiddleware(['auth']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/home-admin', [AuthController::class, 'homeAdmin']);
